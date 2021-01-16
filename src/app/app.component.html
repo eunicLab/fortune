@@ -1,0 +1,75 @@
+<div>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+      <a class="navbar-brand" routerLink="/" routerLinkActive='active' >FORTUNE</a>
+    </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="nav navbar-nav ">
+      
+      <ng-container *ngIf="activeNav==='Home'">
+      <li class="active"><a routerLink ="/" routerLinkActive='active' (click)="updateActiveNav('Home')">Home</a></li>
+      </ng-container>
+      <ng-container *ngIf="activeNav!=='Home'">
+        <li><a routerLink="/" (click)="updateActiveNav('Home')">Home</a></li>
+      </ng-container>
+    
+
+      <ng-container *ngIf="activeNav==='Admin'">
+      <li class="active"><a routerLink = "/Admin" routerLinkActive="active" (click)="updateActiveNav('Admin')">Admin</a></li>
+      </ng-container>
+        <ng-container *ngIf="activeNav!=='Admin'">
+          <li ><a routerLink= "/Admin" (click)="updateActiveNav('Admin')">Admin</a></li>
+        </ng-container>
+
+      
+      <ng-container *ngIf="activeNav==='Basket'">
+        <li class="active"><a routerLink="/Basket" (click)="updateActiveNav('Basket')">Basket</a></li>
+      </ng-container>
+      <ng-container *ngIf="activeNav!=='Basket'">
+      <li><a routerLink = "/Basket" routerLinkActive="active" (click)="updateActiveNav('Basket')">Basket</a></li>
+      </ng-container>
+       
+
+           <ng-container *ngIf="activeNav==='Login' && loginData.token ===''">
+              <li class="active">
+                <a routerLink = "/Login"  routerLinkActive="active" (click)="updateActiveNav('Login')"> 
+                  Login
+                </a>
+              </li>
+            </ng-container>
+
+            <ng-container *ngIf="activeNav !=='Login' && loginData.token ===''">
+              <li>
+                <a routerLink="/Login" (click)="updateActiveNav('Login')" >
+                  Login
+                </a>
+              </li>
+            </ng-container>
+
+            <ng-container *ngIf="activeNav==='Login' && loginData.token !==''">
+              <li class="active">
+                <a routerLink="/Login" routerLinkActive="active" (click)="updateActiveNav('Login')" >
+                  Log out
+                </a>
+              </li>
+            </ng-container>
+            
+            <ng-container *ngIf="activeNav !=='Login' && loginData.token !==''">
+              <li>
+                <a routerLink="/Login"  (click)="updateActiveNav('Login')">
+                  Log out
+                </a>
+              </li>
+            </ng-container>
+    </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<router-outlet></router-outlet>

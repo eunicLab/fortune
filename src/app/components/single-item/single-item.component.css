@@ -1,0 +1,16 @@
+.titleSinglePage {
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.priceSinglePage {
+  color: #2a69f0;
+  font-weight: bold;
+}
+.singlePageImage {
+  height: 600px;
+  width: 600px;
+}
+.detailSinglePage {
+  margin-top: 20%;
+}
