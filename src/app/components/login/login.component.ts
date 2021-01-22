@@ -19,6 +19,8 @@ export class LoginComponent {
   loginData = { token: '', email: '', admin: false};
   loginError = '';
   errorType = '';
+  allCartData = { cartItems: [], email: '', _id: '' };
+  allCartDataItems: any[] = [];
 
   
   
@@ -34,21 +36,23 @@ export class LoginComponent {
     setTimeout(() => { this.data.updateActiveNav('Login') }, 1);
     this.data.share.subscribe((x: any) => this.loginData = x)
     this.token = this.loginData.token
+    this.data.shareCartData.subscribe((x: any) => this.allCartData = x)
+    this.allCartDataItems = this.allCartData.cartItems
   }
 
   handleLogin() {
     this.active = 'login'
     this.loginError = ''
-     this.errorType = '';
+    this.errorType = '';
   }
   handleSignup() {
     this.active = 'signup'
     this.loginError = ''
-     this.errorType = '';
+    this.errorType = '';
   }
   
    // Email validation
-validateEmail(emailInput: any){
+  validateEmail(emailInput: any){
     const emailformat = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (emailInput.match(emailformat)) {
       return true;
@@ -67,18 +71,20 @@ validateEmail(emailInput: any){
   onSubmit() {
     if (this.token === '') {
       let login = (user: User) => {
-        
           this.loginService.loginUser(user).subscribe(async data => {
             this.token = data.token
             this.data.updateData({ token: this.token, email: this.email, admin:data.admin });
-            this.router.navigateByUrl('/')
             this.cartService.getCartItems(this.token, this.email).subscribe(
               info => {
-                this.data.updateCartData(info[0])
+              let allCartDataItems = [...info[0].cartItems, ...this.allCartDataItems]
+              let backendData = {_id:info[0]._id, email:info[0].email, cartItems:allCartDataItems}
+              this.data.updateCartData(backendData)
+                this.cartService.updateCart(backendData, this.token).subscribe();
+                this.router.navigateByUrl('/')
               }
             )
           }); 
-        
+      
       }
       switch (this.active) {
         case 'login':
@@ -111,7 +117,10 @@ validateEmail(emailInput: any){
                   await this.cartService.createCart(newCartItem, data.token).subscribe((info) => {
                     this.cartService.getCartItems(this.token, this.email).subscribe(
                       data => {
-                        this.data.updateCartData(data[0])
+                         let allCartDataItems = [...data[0].cartItems, ...this.allCartDataItems]
+                        let backendData = {_id:data[0]._id, email:data[0].email, cartItems:allCartDataItems}
+                        this.data.updateCartData(backendData)
+                        this.cartService.updateCart(backendData, this.token).subscribe();
                       }
                     )
               

@@ -44,7 +44,7 @@ export class SingleItemComponent implements OnInit {
   }
   
   addToCart = (data: any) => {
-    if (this.loginData.token !== '') {
+  
       var idRandom = Math.random().toString();
       this.allCartDataItems.push({
         id: idRandom,
@@ -63,12 +63,13 @@ export class SingleItemComponent implements OnInit {
         cartItems: this.allCartDataItems
       }
      
-      this.mydata.updateCartData(backend)
+    this.mydata.updateCartData(backend)
+    this.mydata.shareCartData.subscribe((x: any) => this.allCartData = x)
+    console.log(this.allCartData)
+    if (this.loginData.token !== '') {
       this.cartService.updateCart(backend, this.loginData.token).subscribe();
-      this.router.navigateByUrl('/');
-
     }
-  
+    this.router.navigateByUrl('/');   
   }
  
   }

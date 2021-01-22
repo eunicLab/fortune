@@ -46,10 +46,12 @@ export class BasketComponent {
     for (let i in this.allCartDataItems) {
       this.total += Number(this.allCartDataItems[i].price)
     }
-  this.cartService.updateCart({
-      cartItems: backend,
-      email: this.allCartData.email,
-      _id: this.allCartData._id
-    }, this.loginData.token).subscribe();
+    if (this.loginData.token !== '') {
+      this.cartService.updateCart({
+        cartItems: backend,
+        email: this.allCartData.email,
+        _id: this.allCartData._id
+      }, this.loginData.token).subscribe();
+    }
   }
 }

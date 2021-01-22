@@ -8,7 +8,7 @@ export class DataService {
   private content = new BehaviorSubject<any>({token:'', email:'', admin:false})
   public share = this.content.asObservable();
 
-  private cartData = new BehaviorSubject<any>({})
+  private cartData = new BehaviorSubject<any>({_id:'', cartItems:[], email:''})
   public shareCartData = this.cartData.asObservable();
 
   private activeNav = new BehaviorSubject<string>('')
@@ -32,4 +32,6 @@ export class DataService {
     this.activeNav.next(text)
   }
 }
+
+
 
