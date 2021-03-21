@@ -12,6 +12,7 @@ export class BasketComponent {
   allCartData = { cartItems: [], email: '', _id: '' };
   allCartDataItems: any[] = [];
   total = 0;
+  quantityTotal = 0;
 
 
   constructor(
@@ -24,7 +25,8 @@ export class BasketComponent {
   this.data.shareCartData.subscribe((x: any) => this.allCartData = x)
   this.allCartDataItems = this.allCartData.cartItems
     for (let i in this.allCartDataItems) {
-      this.total += Number(this.allCartDataItems[i].price)
+      this.total += Number(this.allCartDataItems[i].price * this.allCartDataItems[i].quantity)
+      this.quantityTotal +=Number(this.allCartDataItems[i].quantity)
     }
   }
 

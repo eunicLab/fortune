@@ -4,6 +4,13 @@
         <p class='titleSinglePage'>{{data?.title}}</p>
         <p class='priceSinglePage'>€ {{data?.price}}</p>
         <p class='descriptionSinglePage'>{{data?.description}}</p>
+        <div class="dropdown">
+        <label for="quantity">Qty:</label>  
+        <select class="btn btn-primary dropdown-toggle"  ngModel="quantity" (ngModelChange)="onQuantityChanged($event)">
+            <option  *ngFor="let quantity of quantities" [ngValue]="quantity.value">{{quantity.name}}</option>  
+        </select>
+        </div>
         <p class="btn btn-primary" (click)="addToCart(data)">Add to Basket</p>
     </div>
 </div>
+

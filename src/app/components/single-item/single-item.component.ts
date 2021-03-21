@@ -14,19 +14,29 @@ import { DataService } from 'src/app/services/data.service';
 export class SingleItemComponent implements OnInit {
   @Output() ItemToCart: EventEmitter<any> = new EventEmitter();
 
+
   id: string | null = '';
   data: any= { _id: '', title: '', description: '', price: 0, imageUrl: '', email: '' }
   allstuffs: MyStuff[] = [];
   loginData = { token: '', email: '' };
   allCartDataItems: any[] = [];
-  allCartData={_id:'', cartItems:[], email:''}
-
-
+  allCartData = { _id: '', cartItems: [], email: '' }
+  quantity = 1;
+  default={value:1, name:"1"}
+ 
+ 
+quantities = [
+    { value: 1, name: "1" },
+    { value: 2, name: "2" },
+    { value: 3, name: "3" },
+    { value: 4, name: "4" },
+    { value: 5, name: "5" }
+  ];
   constructor(
     private activeParms: ActivatedRoute,
     private cartService: CartService,
     private mydata: DataService,
-    private router: Router
+    private router: Router,
   ) { }
   
 
@@ -37,14 +47,18 @@ export class SingleItemComponent implements OnInit {
     this.data = this.allstuffs.find(p=>p._id===this.id)
     this.mydata.shareCartData.subscribe((x: any) => this.allCartData = x)
     this.allCartDataItems = this.allCartData.cartItems
+   
   }
 
   goToLogin() {
     this.router.navigateByUrl('/Login')
   }
+
+  onQuantityChanged(value: any) {
+    this.quantity = value;
+  }
   
   addToCart = (data: any) => {
-  
       var idRandom = Math.random().toString();
       this.allCartDataItems.push({
         id: idRandom,
@@ -52,10 +66,11 @@ export class SingleItemComponent implements OnInit {
         price: data.price,
         description: data.description,
         imageUrl: data.imageUrl,
-        _id: data._id
+        _id: data._id,
+        quantity:this.quantity
       })
-    
-  
+
+  console.log(this.quantity)
       var backend =
       {
         _id: this.allCartData._id,
@@ -71,7 +86,7 @@ export class SingleItemComponent implements OnInit {
     }
     this.router.navigateByUrl('/');   
   }
- 
+
   }
 
 
