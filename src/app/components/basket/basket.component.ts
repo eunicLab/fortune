@@ -45,8 +45,10 @@ export class BasketComponent {
     })
     this.allCartDataItems = backend
     this.total = 0;
+    this.quantityTotal = 0;
     for (let i in this.allCartDataItems) {
-      this.total += Number(this.allCartDataItems[i].price)
+      this.total += Number(this.allCartDataItems[i].price * this.allCartDataItems[i].quantity)
+      this.quantityTotal += Number(this.allCartDataItems[i].quantity)
     }
     if (this.loginData.token !== '') {
       this.cartService.updateCart({
