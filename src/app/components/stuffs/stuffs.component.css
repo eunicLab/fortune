@@ -8,3 +8,13 @@
   margin-left: 1%;
   margin-right: 1%;
 }
+
+.container-fluid{
+margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .container-fluid{
+margin: 5%;
+
+}
+}

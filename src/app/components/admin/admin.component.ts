@@ -37,12 +37,18 @@ export class AdminComponent implements OnInit {
     this.data.share.subscribe((x: any) => this.loginData = x)
     this.data.shareStuffData.subscribe((x: any) => this.allstuffs = x)
     this.update = new Array(this.allstuffs.length).fill('Update');
-    this.editable = new Array(this.allstuffs.length).fill('false')   
+    this.editable = new Array(this.allstuffs.length).fill('false') 
+        if (this.allstuffs.length === 0 ) {
+            this.stuffService.getStuffs().subscribe((info) => {
+            this.allstuffs = info;
+            this.data.updateStuffData(info)
+            this.update = new Array(this.allstuffs.length).fill('Update');
+            this.editable = new Array(this.allstuffs.length).fill('false') 
+      });
+    }
   }
 
 
-
-  
    deleteStuff(deleteId: string|undefined) {
      this.stuffService.deleteStuff(deleteId, this.loginData.token).subscribe(async data => {
       await  this.stuffService.getStuffs().subscribe((info) => {

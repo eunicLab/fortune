@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MyStuff } from 'src/app/models/Stuffs';
 import { CartService } from 'src/app/services/cart.service';
 import { DataService } from 'src/app/services/data.service';
+import { StuffService } from 'src/app/services/stuff.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -37,6 +39,8 @@ quantities = [
     private cartService: CartService,
     private mydata: DataService,
     private router: Router,
+    private stuffService: StuffService,
+    private spinner: NgxSpinnerService
   ) { }
   
 
@@ -44,9 +48,24 @@ quantities = [
    this.mydata.share.subscribe((x: any)=>this.loginData = x)
     this.id = this.activeParms.snapshot.paramMap.get("id")
     this.mydata.shareStuffData.subscribe((x: any) => this.allstuffs = x)
-    this.data = this.allstuffs.find(p=>p._id===this.id)
+     this.data = this.allstuffs.find(p => p._id === this.id)
+    if (this.allstuffs.length === 0) {
+       this.spinner.show()
+      this.stuffService.getStuffs().subscribe((info) => {
+        this.allstuffs = info;
+        this.mydata.updateStuffData(info)
+        this.data = this.allstuffs.find(p => p._id === this.id)
+        if (info) {
+                    setTimeout(() => {
+                    this.spinner.hide();
+                    }, 1000);
+                }
+      });
+    }
     this.mydata.shareCartData.subscribe((x: any) => this.allCartData = x)
     this.allCartDataItems = this.allCartData.cartItems
+    console.log(this.id)
+    
    
   }
 

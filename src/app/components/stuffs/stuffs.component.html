@@ -4,11 +4,13 @@
     <h3>Home of Quality Products</h3>
 </div>
 <ngx-spinner></ngx-spinner>
-<div class="card col-sm-4" style="width:250px" *ngFor= 'let stuff of allstuffs index as index'>
+<div class='container-fluid'>
+<div class="card col-sm-4" style="width:250px; margin: 0 auto;" *ngFor= 'let stuff of allstuffs index as index'>
     <a [routerLink]="['/Product', stuff._id]"[state]="{title:[stuff.title], description:[stuff.description], price:[stuff.price], email:[stuff.email], imageUrl:[stuff.imageUrl], _id:[stuff._id]}"><img class="card-img-top" src={{stuff.imageUrl}} alt="Card image"></a>
     <div class="card-body text-center">
         <h4 class="card-title">{{stuff.title}}</h4>
         <h5 class="card-text">${{stuff.price}}</h5>
     </div>
+</div>
 </div>
 </div>

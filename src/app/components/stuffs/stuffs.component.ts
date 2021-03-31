@@ -26,10 +26,13 @@ export class StuffsComponent  {
       this.stuffService.getStuffs().subscribe((info) => {
         this.allstuffs = info;
         this.data.updateStuffData(info)
-      });
-    setTimeout(() => {
+        if (info) {
+                    setTimeout(() => {
       this.spinner.hide();
     }, 1000);
+                }
+      });
+   
 
   }
 
@@ -38,3 +41,4 @@ export class StuffsComponent  {
 
 
 }
+
