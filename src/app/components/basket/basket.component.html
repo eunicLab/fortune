@@ -1,11 +1,9 @@
-<div class='container' style="margin-left:10%; margin-top:5%">
+<div class='container'>
 
     <table class='table table-striped table-bordered'>
         <thead>
             <tr>
-                <th>
-                    <h3>Shopping Cart</h3>
-                </th>
+                <th>Shopping Cart</th>
                 <th>Quantity</th>
                 <th>Price</th>
             </tr>
@@ -13,9 +11,9 @@
         <tbody>
             <tr *ngFor='let cartData of allCartDataItems index as index'>
                 <td>
+                    <p>{{cartData.title}}</p>
                     <img src={{cartData.imageUrl}} class="card-img-top">
-                    <span>{{cartData.title}}</span>
-                    <span>{{cartData.description}}</span>
+                    <p>{{cartData.description}}</p>
                     <p><button class='btn btn-danger' (click)="deleteCartData(cartData.id)">
                             Delete
                         </button></p>

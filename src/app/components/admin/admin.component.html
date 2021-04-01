@@ -1,11 +1,11 @@
-<div class='container' >
+<div class='container'>
     <h2 style="margin-bottom:5%">Admin Dashboard</h2>
     <form class="form">
         <p class='error'>{{error.errorMessage}}</p>
-        <ng-container *ngIf= "error.errorType !=='title'">
+        <ng-container *ngIf="error.errorType !=='title'">
             <div class='form-group'>
-            <label for='name'>Title:</label>
-            <input class='form-control' type="text" name='title' [(ngModel)]='title' />
+                <label for='name'>Title:</label>
+                <input class='form-control' type="text" name='title' [(ngModel)]='title' />
             </div>
         </ng-container>
 
@@ -15,8 +15,8 @@
                 <input class='form-control errorRed' type="text" name='title' [(ngModel)]='title' />
             </div>
         </ng-container>
-       
-        <ng-container *ngIf= "error.errorType !=='imageUrl'">
+
+        <ng-container *ngIf="error.errorType !=='imageUrl'">
             <div class='form-group'>
                 <label for='name'>Image Url:</label>
                 <input class='form-control' type="text" name='imageUrl' [(ngModel)]='imageUrl' />
@@ -29,22 +29,22 @@
                 <input class='form-control errorRed' type="text" name='imageUrl' [(ngModel)]='imageUrl' />
             </div>
         </ng-container>
-       
-        <ng-container *ngIf= "error.errorType !=='price'" >
+
+        <ng-container *ngIf="error.errorType !=='price'">
             <div class='form-group'>
                 <label for='price'>Price:</label>
                 <input class='form-control' type="number" name='price' [(ngModel)]='price' />
             </div>
         </ng-container>
 
-            <ng-container *ngIf="error.errorType ==='price'">
-                <div class='form-group'>
-                    <label for='price'>Price:</label>
-                    <input class='form-control errorRed' type="number" name='price' [(ngModel)]='price' />
-                </div>
-            </ng-container>
+        <ng-container *ngIf="error.errorType ==='price'">
+            <div class='form-group'>
+                <label for='price'>Price:</label>
+                <input class='form-control errorRed' type="number" name='price' [(ngModel)]='price' />
+            </div>
+        </ng-container>
 
-        <ng-container *ngIf= "error.errorType !=='description'">
+        <ng-container *ngIf="error.errorType !=='description'">
             <div className='form-group'>
                 <label for='phonenumber'>Description:</label>
                 <textarea class='form-control' type="text" name='description' [(ngModel)]='description'>
@@ -60,10 +60,11 @@
                 </textarea>
             </div>
         </ng-container>
-        
-   
-       
-        <button class='btn btn-success' (click)="addItem()" data-toggle="modal" data-target="#myModalauth"> Submit</button>
+
+
+
+        <button class='btn btn-success' (click)="addItem()" data-toggle="modal" data-target="#myModalauth">
+            Submit</button>
     </form>
 
 
@@ -77,100 +78,102 @@
                 <th class='text-center' style="width: 21%">Action</th>
             </tr>
         </thead>
-    
+
         <tbody>
-    
+
             <tr id='tableRow' *ngFor='let stuff of allstuffs index as index'>
                 <ng-container *ngIf="editable[index]==='false'">
-                    <td   contenteditable="false">{{stuff.title}}</td>
+                    <td contenteditable="false">{{stuff.title}}</td>
                 </ng-container>
                 <ng-container *ngIf="editable[index]==='true'">
-                    <td  id="title{{index}}" class='blue' contenteditable="true">{{stuff.title}}
+                    <td id="title{{index}}" class='blue' contenteditable="true">{{stuff.title}}
                     </td>
                 </ng-container>
-               
+
                 <ng-container *ngIf="editable[index]==='false'">
-                    <td  contenteditable="false">{{stuff.imageUrl}}</td>
+                    <td contenteditable="false">{{stuff.imageUrl}}</td>
                 </ng-container>
                 <ng-container *ngIf="editable[index]==='true'">
-                    <td  id="imageUrl{{index}}" class='blue' contenteditable="true">{{stuff.imageUrl}}
+                    <td id="imageUrl{{index}}" class='blue' contenteditable="true">{{stuff.imageUrl}}
                     </td>
                 </ng-container>
-             
-    
+
+
                 <ng-container *ngIf="editable[index]==='false'">
-                    <td  contenteditable="false" type='number'>{{stuff.price}}</td>
+                    <td contenteditable="false" type='number'>{{stuff.price}}</td>
                 </ng-container>
                 <ng-container *ngIf="editable[index]==='true'">
-                    <td  id="price{{index}}" class='blue' type='number' contenteditable="true">{{stuff.price}}
+                    <td id="price{{index}}" class='blue' type='number' contenteditable="true">{{stuff.price}}
                     </td>
                 </ng-container>
-              
+
 
 
                 <ng-container *ngIf="editable[index]==='false'">
                     <td contenteditable="false">{{stuff.description}}</td>
                 </ng-container>
                 <ng-container *ngIf="editable[index]==='true'">
-                    <td  id="description{{index}}" class='blue' contenteditable="true">{{stuff.description}}
+                    <td id="description{{index}}" class='blue' contenteditable="true">{{stuff.description}}
                     </td>
                 </ng-container>
-            
-    
+
+
                 <ng-container *ngIf="editable[index]==='false'">
                     <td>
                         <p>
-                        <button class='btn btn-default readButton' data-toggle="modal" data-target="#myModal" (click)="onView(stuff.imageUrl)">
-                            View
-                        </button>
+                            <button class='btn btn-default readButton' data-toggle="modal" data-target="#myModal"
+                                (click)="onView(stuff.imageUrl)">
+                                View
+                            </button>
 
-                        <ng-container *ngIf="!loginData.admin">
-                            <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)" >
-                                {{update[index]}}
-                            </button>
-                        </ng-container>
+                            <ng-container *ngIf="!loginData.admin">
+                                <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)">
+                                    {{update[index]}}
+                                </button>
+                            </ng-container>
 
-                        <ng-container *ngIf="loginData.admin">
-                            <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)">
-                                {{update[index]}}
-                            </button>
-                        </ng-container>
-                       
-                        <ng-container *ngIf="loginData.admin">
-                            <button class='btn btn-danger' (click)="deleteStuff(stuff._id)">
-                                Delete
-                            </button>
-                        </ng-container>
-                        <ng-container *ngIf="!loginData.admin">
-                            <button class='btn btn-danger'  data-toggle="modal" data-target="#myModalauth">
-                                Delete
-                            </button>
-                        </ng-container>
+                            <ng-container *ngIf="loginData.admin">
+                                <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)">
+                                    {{update[index]}}
+                                </button>
+                            </ng-container>
 
-                      
+                            <ng-container *ngIf="loginData.admin">
+                                <button class='btn btn-danger' (click)="deleteStuff(stuff._id)">
+                                    Delete
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="!loginData.admin">
+                                <button class='btn btn-danger' data-toggle="modal" data-target="#myModalauth">
+                                    Delete
+                                </button>
+                            </ng-container>
+
+
                         </p>
                     </td>
                 </ng-container>
-    
-                
-                <ng-container *ngIf="editable[index]==='true'">
-                    <td  class='blue'>
-                        <p>
-                        <button class='btn btn-default readButton' data-toggle="modal" data-target="#myModal" (click)="onView(stuff.imageUrl)">
-                            View
-                        </button>
 
-                        <ng-container *ngIf="loginData.admin">
-                            <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)">
-                                {{update[index]}}
+
+                <ng-container *ngIf="editable[index]==='true'">
+                    <td class='blue'>
+                        <p>
+                            <button class='btn btn-default readButton' data-toggle="modal" data-target="#myModal"
+                                (click)="onView(stuff.imageUrl)">
+                                View
                             </button>
-                        </ng-container>
-                        <ng-container *ngIf="!loginData.admin">
-                            <button class='btn btn-success' data-toggle="modal" data-target="#myModalauth">
-                                {{update[index]}}
-                            </button>
-                        </ng-container>
-                      
+
+                            <ng-container *ngIf="loginData.admin">
+                                <button class='btn btn-success' (click)="updateClicked(stuff, index, $event)">
+                                    {{update[index]}}
+                                </button>
+                            </ng-container>
+                            <ng-container *ngIf="!loginData.admin">
+                                <button class='btn btn-success' data-toggle="modal" data-target="#myModalauth">
+                                    {{update[index]}}
+                                </button>
+                            </ng-container>
+
                             <ng-container *ngIf="loginData.admin">
                                 <button class='btn btn-danger' (click)="deleteStuff(stuff._id)">
                                     Delete
@@ -184,32 +187,33 @@
                         </p>
                     </td>
                 </ng-container>
-    
-             
-    
+
+
+
             </tr>
     </table>
+ 
     <!-- Modal image-->
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-    
+
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body text-center">
-                    <img src={{view}} alt="" class="view"/>
+                    <img src={{view}} alt="" class="view" />
                 </div>
             </div>
-    
+
         </div>
     </div>
     <!-- Modal admin authorization -->
     <ng-container *ngIf="!loginData.admin">
         <div id="myModalauth" class="modal fade" role="dialog">
             <div class="modal-dialog">
-    
+
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
@@ -217,17 +221,20 @@
                         <h4 class="modal-title">No authorization</h4>
                     </div>
                     <div class="modal-body text-center">
-                       <h5> <p>You do not have authorization for this action</p></h5>
-                        <h5><p>If you are an Admin, please login with your admin credentials</p></h5>
+                        <h5>
+                            <p>You do not have authorization for this action</p>
+                        </h5>
+                        <h5>
+                            <p>If you are an Admin, please login with your admin credentials</p>
+                        </h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class='btn btn-success' data-dismiss="modal" (click)="goToLogin()" >Go to Login</button>
+                        <button type="button" class='btn btn-success' data-dismiss="modal" (click)="goToLogin()">Go to
+                            Login</button>
                         <button type="button" class='btn btn-danger' data-dismiss="modal">Cancel</button>
                     </div>
                 </div>
             </div>
         </div>
-        </ng-container>
+    </ng-container>
 </div>
-
-
