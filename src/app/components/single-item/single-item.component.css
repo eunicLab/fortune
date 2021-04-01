@@ -11,21 +11,27 @@
   height: 600px;
   width: 600px;
 }
+.modalImage {
+  height: 150px;
+  width: 150px;
+}
 .detailSinglePage {
   margin-top: 20%;
 }
-.dropdown{
+.dropdown {
   margin-bottom: 2%;
 }
 
-label{
+label {
   margin-right: 1%;
 }
-
-@media (max-width: 768px) {
-.singlePageImage {
-  height: 250px;
-  width: 250px;
+.greenText {
+  color: green;
+  font-weight: 500;
 }
-
+@media (max-width: 768px) {
+  .singlePageImage {
+    height: 250px;
+    width: 250px;
+  }
 }

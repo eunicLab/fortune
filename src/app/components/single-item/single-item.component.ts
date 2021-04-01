@@ -103,9 +103,14 @@ quantities = [
     if (this.loginData.token !== '') {
       this.cartService.updateCart(backend, this.loginData.token).subscribe();
     }
-    this.router.navigateByUrl('/');   
   }
 
+  continue = () => {
+    this.router.navigateByUrl('/');  
+  }
+  proceed = () => {
+  this.router.navigateByUrl('/Basket');  
+}
   }
 
 

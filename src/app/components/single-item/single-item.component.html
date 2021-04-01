@@ -10,7 +10,27 @@
             <option  *ngFor="let quantity of quantities" [ngValue]="quantity.value">{{quantity.name}}</option>  
         </select>
         </div>
-        <p class="btn btn-primary" (click)="addToCart(data)">Add to Basket</p>
+        <p class="btn btn-primary" (click)="addToCart(data)" data-toggle="modal" data-target="#myModal">Add to Basket</p>
     </div>
 </div>
 
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <img src={{data?.imageUrl}} class='modalImage' />
+               <p class='greenText'>Added to Cart</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class='btn' data-dismiss="modal" (click)="continue()">Continue Shopping</button>
+                <button type="button" class='btn btn-success' data-dismiss="modal" (click)="proceed()">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
