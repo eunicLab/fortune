@@ -33,7 +33,6 @@ export class BasketComponent {
 
 
 
-
   deleteCartData(id:any) {
    var backend = this.allCartDataItems.filter(
       (number) => number.id !== id
@@ -50,6 +49,7 @@ export class BasketComponent {
       this.total += Number(this.allCartDataItems[i].price * this.allCartDataItems[i].quantity)
       this.quantityTotal += Number(this.allCartDataItems[i].quantity)
     }
+     this.data.updateCartQuantity(this.quantityTotal)
     if (this.loginData.token !== '') {
       this.cartService.updateCart({
         cartItems: backend,

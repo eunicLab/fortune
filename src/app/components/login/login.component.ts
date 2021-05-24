@@ -21,6 +21,7 @@ export class LoginComponent {
   errorType = '';
   allCartData = { cartItems: [], email: '', _id: '' };
   allCartDataItems: any[] = [];
+  cartQuantity = 0;
 
   
   
@@ -73,13 +74,19 @@ export class LoginComponent {
       let login = (user: User) => {
           this.loginService.loginUser(user).subscribe(async data => {
             this.token = data.token
-            this.data.updateData({ token: this.token, email: this.email, admin:data.admin });
+            this.data.updateData({ token: this.token, email: this.email, admin: data.admin });
+                   
             this.cartService.getCartItems(this.token, this.email).subscribe(
               info => {
               let allCartDataItems = [...info[0].cartItems, ...this.allCartDataItems]
               let backendData = {_id:info[0]._id, email:info[0].email, cartItems:allCartDataItems}
-              this.data.updateCartData(backendData)
+                this.data.updateCartData(backendData)
                 this.cartService.updateCart(backendData, this.token).subscribe();
+      
+                for (let i in allCartDataItems) {
+                this.cartQuantity +=Number(allCartDataItems[i].quantity)
+                  }
+                this.data.updateCartQuantity(this.cartQuantity )
                 this.router.navigateByUrl('/')
               }
             )
@@ -108,7 +115,6 @@ export class LoginComponent {
             if (this.validateEmail(this.email)) {
                if (this.password !=='') {
               this.loginService.signupUser(newuser).subscribe(data => {
-                console.log(data);
                 this.loginService.loginUser(newuser).subscribe(async data => {
                   this.token = data.token
                   this.data.updateData({ token: this.token, email: this.email, admin:data.admin });

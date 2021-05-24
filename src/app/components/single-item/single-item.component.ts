@@ -24,7 +24,8 @@ export class SingleItemComponent implements OnInit {
   allCartDataItems: any[] = [];
   allCartData = { _id: '', cartItems: [], email: '' }
   quantity = 1;
-  default={value:1, name:"1"}
+  default = { value: 1, name: "1" }
+  cartQuantity = 0;
  
  
 quantities = [
@@ -63,9 +64,7 @@ quantities = [
       });
     }
     this.mydata.shareCartData.subscribe((x: any) => this.allCartData = x)
-    this.allCartDataItems = this.allCartData.cartItems
-    console.log(this.id)
-    
+    this.allCartDataItems = this.allCartData.cartItems  
    
   }
 
@@ -89,7 +88,7 @@ quantities = [
         quantity:this.quantity
       })
 
-  console.log(this.quantity)
+ 
       var backend =
       {
         _id: this.allCartData._id,
@@ -99,18 +98,23 @@ quantities = [
      
     this.mydata.updateCartData(backend)
     this.mydata.shareCartData.subscribe((x: any) => this.allCartData = x)
-    console.log(this.allCartData)
+  
     if (this.loginData.token !== '') {
       this.cartService.updateCart(backend, this.loginData.token).subscribe();
     }
+   for (let i in this.allCartDataItems) {
+      this.cartQuantity +=Number(this.allCartDataItems[i].quantity)
+    }
+    this.mydata.updateCartQuantity(this.cartQuantity )
   }
 
-  continue = () => {
+  continueShopping = () => {
     this.router.navigateByUrl('/');  
   }
-  proceed = () => {
+  proceedToCheckout = () => {
   this.router.navigateByUrl('/Basket');  
 }
   }
+
 
 

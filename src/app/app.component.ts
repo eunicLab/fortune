@@ -10,7 +10,8 @@ import { DataService } from './services/data.service';
 export class AppComponent {
   title = 'fortune';
   activeNav = '';
-  loginData = {token:'', email:''};
+  loginData = { token: '', email: '' };
+  cartQuantity = 0;
 
     constructor(
     private data: DataService,
@@ -19,6 +20,7 @@ export class AppComponent {
   ngOnInit(): void {
     this.data.shareActiveNav.subscribe((x: string) => this.activeNav = x)
     this.data.share.subscribe((x: any) => this.loginData = x)
+    this.data.shareCartQuantity.subscribe((x:any)=>this.cartQuantity=x)
   }
 
   updateActiveNav(activeNav:string) {
@@ -26,3 +28,4 @@ export class AppComponent {
  }
 
 }
+

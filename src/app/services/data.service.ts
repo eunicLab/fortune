@@ -17,6 +17,9 @@ export class DataService {
   private stuffData = new BehaviorSubject<any>([])
   public shareStuffData = this.stuffData.asObservable();
 
+  private cartQuantity = new BehaviorSubject<Number>(0)
+  public shareCartQuantity = this.cartQuantity.asObservable();
+
   constructor() { }
   updateData(text: any) {
     this.content.next(text);
@@ -30,6 +33,9 @@ export class DataService {
 
   updateActiveNav(text: string) {
     this.activeNav.next(text)
+  }
+  updateCartQuantity(text: Number) {
+    this.cartQuantity.next(text)
   }
 }
 

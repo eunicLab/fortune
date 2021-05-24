@@ -28,10 +28,10 @@
 
       
       <ng-container *ngIf="activeNav==='Basket'">
-        <li class="active"><a routerLink="/Basket" (click)="updateActiveNav('Basket')">Basket</a></li>
+        <li class="active"><a routerLink="/Basket" (click)="updateActiveNav('Basket')">Basket ({{cartQuantity}})</a></li>
       </ng-container>
       <ng-container *ngIf="activeNav!=='Basket'">
-      <li><a routerLink = "/Basket" routerLinkActive="active" (click)="updateActiveNav('Basket')">Basket</a></li>
+      <li><a routerLink = "/Basket" routerLinkActive="active" (click)="updateActiveNav('Basket')">Basket ({{cartQuantity}})</a></li>
       </ng-container>
        
 
@@ -70,5 +70,4 @@
     </div>
 </nav>
 </div>
-
 <router-outlet></router-outlet>
